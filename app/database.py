@@ -2,7 +2,7 @@ import pymysql
 import time
 
 class Database:
-    def __init__(self):
+    def __init__(self) -> None:
         try:
             self.connection = pymysql.connect(
                 host='127.0.0.1',
@@ -17,7 +17,7 @@ class Database:
         self.machines = self.__generate_machines()
         self.problems = self.__generate_problems()
             
-    def __generate_machines(self):
+    def __generate_machines(self) -> list:
         machines = []
         with self.connection.cursor() as cursor:
             cursor.execute("SELECT `id`, `geo` FROM `automat`")
@@ -26,7 +26,7 @@ class Database:
                 machines.append([row[0], row[1]])
         return machines        
 
-    def __generate_problems(self):
+    def __generate_problems(self) -> list:
         problems = []
         with self.connection.cursor() as cursor:
             cursor.execute("SELECT `id_code`, `name` FROM `break_codes`")
@@ -35,13 +35,13 @@ class Database:
                 problems.append([row[0], row[1]])
         return problems
     
-    def get_machines(self):
+    def get_machines(self) -> list:
         return self.machines
     
-    def get_problems(self):
+    def get_problems(self) -> list:
         return self.problems
     
-    def set_break(self, automat_id: int, break_id: int, desc_break: str):
+    def set_break(self, automat_id: int, break_id: int, desc_break: str) -> None:
         with self.connection.cursor() as cursor:
             now = time.strftime('%Y-%m-%d %H:%M:%S')
             id_breakdown = None
@@ -56,7 +56,7 @@ class Database:
                            f'VALUES ({automat_id}, {id_breakdown})')
             self.connection.commit()
             
-    def get_products(self, automat_id: int):
+    def get_products(self, automat_id: int) -> list:
         with self.connection.cursor() as cursor:
             products = []
             cursor.execute(f'SELECT  product.id, product.name, product.description FROM product '

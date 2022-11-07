@@ -44,6 +44,11 @@ header ul li {
     color: #fff;
 }
 
+header ul li a {
+    text-decoration: none;
+    color: #fff;
+}
+
 header ul li .btn-header {
     background-color: #fff;
     /* width: 190px; */
