@@ -1,0 +1,78 @@
+body {
+    /* overflow: hidden; */
+    background-color: #0863AC;
+}
+
+.admin {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    position: relative;
+}
+
+.row {
+    min-height: 100% !important;
+    padding: 120px 0 20px 0 !important;
+}
+
+.white-back {
+    width: 100%;
+    height: 100%;
+    background-color: #FFF;
+    border-radius: 20px;
+    text-align: center;
+    padding: 20px 40px;
+}
+
+.white-back span {
+    width: 100%;
+    color: #053179;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.problem-field {
+    width: 100%;
+    background-color: transparent;
+    border: 1px solid #0863AC;
+    border-radius: 5px;
+    outline: none;
+    resize: none;
+
+    padding: 10px 15px 10px 15px;
+    font-family: "Gill Sans", sans-serif;
+}
+
+.problem-field:focus {
+    outline: none;
+    box-shadow: 0px 0px 0px 1px #0863AC;
+}
+
+.new-form {
+    width: 100%;
+    height: 100%;
+    padding-top: 20px;
+    text-align: left;
+    position: relative;
+}
+
+.problem-wrapper {
+    padding-bottom: 20px;
+}
+
+.confirm-btn {
+    position: absolute;
+    bottom: 40px;
+    background-color: #053179;
+    border-radius: 5px;
+    width: 100%;
+    display: flex;
+    text-align: center;
+    border: 0;
+}
+
+.confirm-btn span {
+    color: #fff;
+    width: 100%;
+    padding: 10px 20px;
+}

@@ -1,0 +1,92 @@
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Админ панель | Автомат с едой</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/header.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/admin.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-v4-grid-only@1.0.0/dist/bootstrap-grid.min.css">
+</head>
+<body>
+    <header>
+        <img src="../static/assets/logo.svg" alt="">
+        <ul>
+            <li>Загрузить продукты</li>
+            <li>
+                <div class="btn-header">
+                    <span>Вернуться на главную</span>
+                </div>
+            </li>
+        </ul>
+    </header>
+    
+    <div class="admin">
+        <div class="container">
+            <div class="row">
+                <div class="col-6">
+                    <div class="white-back">
+                        <span>Добавить новый автомат</span>
+                        <form class="new-form" method="post" action="admin/machine">
+                            <label for="geo-machine" class="select-label">Геопозиция автомата</label>
+                            <div class="problem-wrapper">
+                                <input class="problem-field" placeholder="Moscow..." id='geo-machine' name='geo-machine' required></input>
+                            </div>
+                            <label for="geo-decs-machine" class="select-label">Описание геопозиции</label>
+                            <div class="problem-wrapper">
+                                <input class="problem-field" placeholder="В торговом центре..." id='geo-decs-machine' name='geo-decs-machine' required></input>
+                            </div>
+                            <label for="install-date" class="select-label">Дата установки</label>
+                            <div class="problem-wrapper">
+                                <input class="problem-field" placeholder="2022-11-07" id='install-date' name='install-date' required></input>
+                            </div>
+                            <label for="max-products" class="select-label">Максимальное число продуктов</label>
+                            <div class="problem-wrapper">
+                                <input class="problem-field" placeholder="1" id='max-products' name='max-products' required type="number"></input>
+                            </div>
+
+                            <button class="confirm-btn">
+                                <span>Добавить автомат</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="white-back">
+                        <span>Добавить новый продукт</span>
+
+                        <form class="new-form" method="post" action="admin/product">
+                            <label for="name" class="select-label">Название</label>
+                            <div class="problem-wrapper">
+                                <input class="problem-field" placeholder="Twiks..." id='name' name='name' required></input>
+                            </div>
+                            <label for="price" class="select-label">Цена</label>
+                            <div class="problem-wrapper">
+                                <input class="problem-field" placeholder="266.0" id='price' name='price' required></input>
+                            </div>
+                            <label for="desc" class="select-label">Описание</label>
+                            <div class="problem-wrapper">
+                                <input class="problem-field" placeholder="С карамельной начинкой..." id='desc' name='desc' required></input>
+                            </div>
+                            <label for="date-added" class="select-label">Дата добавления</label>
+                            <div class="problem-wrapper">
+                                <input class="problem-field" placeholder="2022-11-07" id='date-added' name='date-added' required></input>
+                            </div>
+                            <label for="before-date" class="select-label">Срок годности</label>
+                            <div class="problem-wrapper">
+                                <input class="problem-field" placeholder="2023-11-07" id='before-date' name='before-date' required></input>
+                            </div>
+
+                            <button class="confirm-btn">
+                                <span>Добавить продукт</span>
+                            </button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -30,7 +30,8 @@
         <div class="right-text">
             <span>Ближе, чем ты думаешь!</span>
         </div>
-        <div class="report-panel">
+
+        <form class="report-panel" method="post" id="report-panel" action="problem">
             <div class="head-text">
                 <span>Пожаловаться на автомат</span>
             </div>
@@ -38,12 +39,10 @@
             <div class="select-block">
                 <label for="select-machine" class="select-label">Выберите автомат</label>
                 <div class="select-wrapper">
-                    <select class="select" id="select-machine">
-                        <option value="Option 1">Option 1</option>
-                        <option value="Option 2">Option 2</option>
-                        <option value="Option 3">Option 3</option>
-                        <option value="Option 4">Option 4</option>
-                        <option value="Option 5">Option 5</option>
+                    <select class="select" id="select-machine" name="select-machine">
+                        {% for el in machines %}
+                        <option value={{ el[0] }}>{{ el[1] }}</option>
+                        {% endfor %}
                     </select>
                 </div>
             </div>
@@ -51,12 +50,10 @@
             <div class="select-block">
                 <label for="select-problem" class="select-label">Выберите проблему</label>
                 <div class="select-wrapper">
-                    <select class="select" id="select-problem">
-                        <option value="Option 1">Option 1</option>
-                        <option value="Option 2">Option 2</option>
-                        <option value="Option 3">Option 3</option>
-                        <option value="Option 4">Option 4</option>
-                        <option value="Option 5">Option 5</option>
+                    <select class="select" id="select-problem" name="select-problem">
+                        {% for el in problems %}
+                        <option value={{ el[0] }}>{{ el[1] }}</option>
+                        {% endfor %}
                     </select>
                 </div>
             </div>
@@ -64,18 +61,18 @@
             <div class="select-block">
                 <label for="problem-desc" class="select-label">Опишите проблему подробно</label>
                 <div class="problem-wrapper">
-                    <textarea class="problem-field" placeholder="Небольшое описание проблемы" id='problem-desc' required></textarea>
+                    <textarea class="problem-field" placeholder="Небольшое описание проблемы" id='problem-desc' name='problem-desc' required></textarea>
                 </div>
             </div>
 
             <div class="footer-report-panel">
                 <div class="blue-line"></div>
 
-                <div class="confirm-btn">
+                <button class="confirm-btn" name="report-btn" id="report-btn">
                     <span class="confirm-span">Отправить</span>
-                </div>
+                </button>
             </div>
-        </div>
+        </form>
     </div>
 
     <div class="info-panel">
@@ -111,32 +108,28 @@
             <div class="row">
                 <div class="col-12">
                     <div class="buy-block">
-                        <div class="text-block">
+                        <form class="text-block" action="order" method="post">
                             <div class="more-text-block">
                                 <span class="head">Приобрести товар</span>
 
                                 <div class="select-block">
                                     <label for="select-machine-to-buy" class="select-label">Выберите автомат</label>
                                     <div class="select-wrapper">
-                                        <select class="select" id="select-machine-to-buy">
-                                            <option value="Option 1">Option 1</option>
-                                            <option value="Option 2">Option 2</option>
-                                            <option value="Option 3">Option 3</option>
-                                            <option value="Option 4">Option 4</option>
-                                            <option value="Option 5">Option 5</option>
+                                        <select class="select" id="select-machine-to-buy" name="select-machine-to-buy">
+                                            {% for el in machines %}
+                                            <option value={{ el[0] }}><button>{{ el[1] }}</button></option>
+                                            {% endfor %}
                                         </select>
                                     </div>
                                 </div>
 
                                 <div class="select-block">
-                                    <label for="select-product" class="select-label">Выберите проблему</label>
+                                    <label for="select-product" class="select-label">Выберите товар</label>
                                     <div class="select-wrapper">
-                                        <select class="select" id="select-product">
-                                            <option value="Option 1">Option 1</option>
-                                            <option value="Option 2">Option 2</option>
-                                            <option value="Option 3">Option 3</option>
-                                            <option value="Option 4">Option 4</option>
-                                            <option value="Option 5">Option 5</option>
+                                        <select class="select" id="select-product" name="select-product">
+                                            {% for el in products %}
+                                            <option value={{ el[0] }}>{{ el[1] }}</option>
+                                            {% endfor %}
                                         </select>
                                     </div>
                                 </div>
@@ -150,12 +143,12 @@
                                     </div>
                                 </div>
                                 <div class="select-block">
-                                    <div class="buy-btn">
+                                    <button class="buy-btn">
                                         <span class="buy-span">Произвести покупку</span>
-                                    </div>
+                                    </button>
                                 </div>
                             </div>
-                        </div>
+                        </form>
                         <div class="image-block"></div>
                     </div>
                 </div>

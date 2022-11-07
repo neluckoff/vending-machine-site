@@ -1,24 +1,48 @@
-from flask import Flask, render_template, url_for
-from flask_socketio import SocketIO, send
+from flask import Flask, render_template, url_for, request
+from database import Database
 
 app = Flask(__name__)
-# socketio = SocketIO(app, cors_allowed_origins="*")
+db = Database()
 
 
-# @socketio.on('message')
-# def message_handler(message):
-#     command = server.command(message).replace('\r', '')
-#     result = command.split('\n')
-#     send(f'~/# {message}')
-#     for row in result:
-#         send(row, broadcast=True)
-
-
-@app.route('/')
+@app.route('/', methods=['GET'])
 def index():
-    return render_template('index.html')
+    machines = db.get_machines()
+    problems = db.get_problems()
+    products = db.get_products(1)
+    return render_template('index.html', machines=machines, problems=problems, products=products)
+    
 
+@app.route('/problem', methods=['POST'])
+def problem():
+    machine = request.form['select-machine']
+    problem = request.form['select-problem']
+    text = request.form['problem-desc']
+    # db.set_break(automat_id=machine, break_id=problem, desc_break=text)
+    return "Жалоба отправлена!"
+    
+    
+@app.route('/order', methods=['POST'])
+def order():
+    machine = request.form['select-machine-to-buy']
+    product = request.form['select-product']
+    print(machine, problem)
+    return render_template('confirm-page.html', head="Вы успешно приобрели товар!", text=f"Товар {product} был успешно приобретен в автомате №{machine}!", btn_text="Вернуться на главную")
+
+@app.route('/admin', methods=['GET'])
+def admin():
+    machines = db.get_machines()
+    problems = db.get_problems()
+    products = db.get_products(1)
+    return render_template('admin.html', machines=machines, problems=problems, products=products)
+        
+@app.route('/admin/machine', methods=['POST'])
+def admin_machine():
+    return "Автомат добавлен!"
+
+@app.route('/admin/product', methods=['POST'])
+def admin_product():
+    return "Продукт добавлен!"
 
 if __name__ == '__main__':
-    # socketio.run(app, host='localhost', allow_unsafe_werkzeug=True)
     app.run()

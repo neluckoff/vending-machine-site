@@ -67,6 +67,7 @@
     border-radius: 5px;
     text-align: center;
     cursor: pointer;
+    border: 0;
 }
 
 .buy-btn .buy-span {
