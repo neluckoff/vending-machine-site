@@ -12,7 +12,7 @@
     <header>
         <img src="../static/assets/logo.svg" alt="">
         <ul>
-            <li>Загрузить продукты</li>
+            <li><a href="#load-product">Загрузить продукты</a></li>
             <li>
                 <a href="/">
                     <div class="btn-header">
@@ -25,10 +25,10 @@
     
     <div class="admin">
         <div class="container">
-            <div class="row">
+            <div class="row new-row">
                 <div class="col-6">
                     <div class="white-back">
-                        <span>Добавить новый автомат</span>
+                        <span class="span-header">Добавить новый автомат</span>
                         <form class="new-form" method="post" action="admin/machine">
                             <label for="geo-machine" class="select-label">Геопозиция автомата</label>
                             <div class="problem-wrapper">
@@ -55,16 +55,16 @@
                 </div>
                 <div class="col-6">
                     <div class="white-back">
-                        <span>Добавить новый продукт</span>
+                        <span class="span-header">Добавить новый продукт</span>
 
                         <form class="new-form" method="post" action="admin/product">
-                            <label for="name" class="select-label">Название</label>
+                            <label for="prod" class="select-label">Название</label>
                             <div class="problem-wrapper">
-                                <input class="problem-field" placeholder="Twiks..." id='name' name='name' required></input>
+                                <input class="problem-field" placeholder="Twiks..." id='prod' name='prod' required></input>
                             </div>
-                            <label for="price" class="select-label">Цена</label>
+                            <label for="price-prod" class="select-label">Цена</label>
                             <div class="problem-wrapper">
-                                <input class="problem-field" placeholder="266.0" id='price' name='price' required></input>
+                                <input class="problem-field" placeholder="266.00" id='price-prod' name='price-prod' type="number" step="0.01" required></input>
                             </div>
                             <label for="desc" class="select-label">Описание</label>
                             <div class="problem-wrapper">
@@ -74,9 +74,9 @@
                             <div class="problem-wrapper">
                                 <input class="problem-field" placeholder="2022-11-07" id='date-added' name='date-added' required></input>
                             </div>
-                            <label for="before-date" class="select-label">Срок годности</label>
+                            <label for="before" class="select-label">Срок годности</label>
                             <div class="problem-wrapper">
-                                <input class="problem-field" placeholder="2023-11-07" id='before-date' name='before-date' required></input>
+                                <input class="problem-field" placeholder="2023-11-07" id='before' name='before' required></input>
                             </div>
 
                             <button class="confirm-btn">
@@ -89,6 +89,69 @@
             </div>
         </div>
     </div>
+
+    <div class="load-product" id="load-product" name="load-product">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="load-block">
+                        <span class="span-header">Загрузить продукты в автомат</span>
+                        <form class="new-form" method="post" action="admin/load">
+                            <div class="first-row">
+
+                                <div class="first-row-set">
+                                    <div class="selector">
+                                        <label for="select-machine" class="select-label">Выберите автомат</label>
+                                        <div class="select-wrapper">
+                                            <select class="select" id="select-machine" name="select-machine">
+                                                {% for el in machines %}
+                                                <option value={{ el[0] }}>{{ el[1] }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="input-row">
+                                        <label for="prod-num" class="select-label">Введите количество товара</label>
+                                        <div class="problem-wrapper">
+                                            <input class="problem-field" placeholder="20" id='prod-num' name='prod-num' type="number" required></input>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="first-row-set">
+                                    <div class="selector">
+                                        <label for="select-product" class="select-label">Выберите товар</label>
+                                        <div class="select-wrapper">
+                                            <select class="select" id="select-product" name="select-product">
+                                                {% for el in products %}
+                                                <option value={{ el[0] }}>{{ el[1] }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="btn-div">
+                                        <button class="load-btn">
+                                            <span>Заполнить</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script>
+        $('a[href^=\\#]').on('click', function(event){     
+            event.preventDefault();
+            $('html,body').animate({scrollTop:$(this.hash).offset().top}, 500);
+        });
+    </script>
 
 </body>
 </html>

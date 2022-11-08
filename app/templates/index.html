@@ -43,7 +43,7 @@
                 <label for="select-machine" class="select-label">Выберите автомат</label>
                 <div class="select-wrapper">
                     <select class="select" id="select-machine" name="select-machine">
-                        {% for el in machines %}
+                        {% for el in machines_pr %}
                         <option value={{ el[0] }}>{{ el[1] }}</option>
                         {% endfor %}
                     </select>
