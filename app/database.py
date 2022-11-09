@@ -1,5 +1,7 @@
 import pymysql
 import time
+import json
+import marshal
 
 class Database:
     def __init__(self) -> None:
@@ -69,14 +71,36 @@ class Database:
     def get_products(self, automat_id: int) -> list:
         with self.connection.cursor() as cursor:
             products = []
-            cursor.execute(f'SELECT  product.id, product.name, product.description FROM product '
+            cursor.execute(f'SELECT  product.id, product.name, product.description, product.price FROM product '
                             f'INNER JOIN automat_products ON automat_products.product_id = product.id '
                             f'WHERE automat_products.automat_id = {automat_id}')
             
             for row in cursor.fetchall():
-                products.append([row[0], f'{row[1]} ({row[2]})'])
+                products.append([row[0], f'{row[1]} ({row[2]}) - ${round(row[3], 2)}'])
                 
             return products
+        
+    def get_json_products(self):
+        with self.connection.cursor() as cursor:
+            automat_prod = {}
+            cursor.execute(f'SELECT product.id, product.name, product.description, automat.id, automat.geo, product.price FROM product '
+                           f'INNER JOIN automat_products ON automat_products.product_id = product.id '
+                            f'INNER JOIN automat ON automat.id = automat_products.automat_id')
+            
+            for row in cursor.fetchall():
+                if row[3] in automat_prod: 
+                    automat_prod[row[3]]['products'].append({'id': row[0], 'name': f'{row[1]} ({row[2]}) - ${round(row[5], 2)}'})
+                else:
+                    automat_prod[row[3]] = {'products': []}
+                    automat_prod[row[3]]['products'].append({'id': row[0], 'name': f'{row[1]} ({row[2]}) - ${round(row[5], 2)}'})
+                    
+            jsonStr = json.dumps(automat_prod, ensure_ascii=False)
+            deserialized = json.loads(jsonStr)
+            
+            # serialized = marshal.dumps(automat_prod)
+            # deserialized = marshal.loads(serialized)
+            
+            return deserialized
         
     def get_all_products(self) -> list:
         with self.connection.cursor() as cursor:
@@ -112,3 +136,9 @@ class Database:
             else:
                 cursor.execute(f'INSERT INTO `automat_products` (`product_id`, `automat_id`, `amount`) VALUES ({product_id}, {automat_id}, {amount})')
             self.connection.commit()
+            
+            
+            
+if __name__ == "__main__":
+    db = Database()
+    db.get_json_products()

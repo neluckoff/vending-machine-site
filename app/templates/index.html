@@ -116,21 +116,10 @@
                                 <span class="head">Приобрести товар</span>
 
                                 <div class="select-block">
-                                    <label for="select-machine-to-buy" class="select-label">Выберите автомат</label>
+                                    <label for="select-machine-to-buy" class="select-label">* Выберите автомат</label>
                                     <div class="select-wrapper">
                                         <select class="select" id="select-machine-to-buy" name="select-machine-to-buy">
                                             {% for el in machines %}
-                                            <option value={{ el[0] }}><button>{{ el[1] }}</button></option>
-                                            {% endfor %}
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="select-block">
-                                    <label for="select-product" class="select-label">Выберите товар</label>
-                                    <div class="select-wrapper">
-                                        <select class="select" id="select-product" name="select-product">
-                                            {% for el in products %}
                                             <option value={{ el[0] }}>{{ el[1] }}</option>
                                             {% endfor %}
                                         </select>
@@ -138,11 +127,20 @@
                                 </div>
 
                                 <div class="select-block">
-                                    <label for="about-order" class="select-label">Информация о заказе</label>
-                                    <div class="about-order-wrapper">
-                                        <div class="about-order" id="about-order">
+                                    <label for="select-product" class="select-label">* Выберите товар</label>
+                                    <div class="select-wrapper" id="sel-wr">
+                                        <select class="select" id="select-product" name="select-product">
+                                            {% for el in products %}
+                                            <option value={{ el[0] }}>{{ el[1] }}</option>
+                                            {% endfor %}
+                                        </select> 
+                                    </div>
+                                </div>
 
-                                        </div>
+                                <div class="select-block">
+                                    <label for="about-order" class="select-label">Пожелания к заказу</label>
+                                    <div class="about-order-wrapper">
+                                        <textarea class="about-order" id="about-order" placeholder="Хочу заказ к 12:00"></textarea>
                                     </div>
                                 </div>
                                 <div class="select-block">
@@ -165,5 +163,30 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="../static/js/anchor.js"></script>
+
+    <script>
+        let products = `{{ json_products }}`
+        products = products.replace(/&#39;/g, '"').replace(/&quot;/ig,'"');;
+        let json = JSON.parse(products);
+
+        $( "#select-machine-to-buy" ).change(function(e) {
+            let city_id = e.target.value
+            
+            let products_by_id = json[city_id]
+
+            if (typeof products_by_id.products === "undefined") return
+            
+            $("#sel-wr").html(`
+                <select class="select" id="select-product" name="select-product">
+                </select>
+            `)
+
+            for (var i = 0; i < products_by_id.products.length; i++) {
+                $('<option value="' + products_by_id.products[i].id + '">' + products_by_id.products[i].name + '</option>').appendTo('#select-product');
+            }
+            
+          });
+    </script>
+
 </body>
 </html>

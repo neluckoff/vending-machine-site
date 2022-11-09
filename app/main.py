@@ -11,7 +11,8 @@ def index():
     machines_pr = db.get_machines_prob()
     problems = db.get_problems()
     products = db.get_products(1)
-    return render_template('index.html', machines=machines, problems=problems, products=products, machines_pr=machines_pr)
+    json_products = db.get_json_products()
+    return render_template('index.html', machines=machines, problems=problems, products=products, machines_pr=machines_pr, json_products=json_products)
     
 
 @app.route('/problem', methods=['POST'])
