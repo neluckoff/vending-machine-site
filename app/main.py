@@ -28,7 +28,7 @@ def problem():
 def order():
     machine = request.form['select-machine-to-buy']
     product = request.form['select-product']
-    print(machine, problem)
+    db.make_order(automat_id=machine, product_id=product)
     return render_template('confirm-page.html', head="Вы успешно приобрели товар!", text=f"Товар {product} был успешно приобретен в автомате №{machine}!", btn_text="Вернуться на главную", href="/")
 
 @app.route('/admin', methods=['GET'])

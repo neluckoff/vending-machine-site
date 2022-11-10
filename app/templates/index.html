@@ -166,6 +166,7 @@
 
     <script>
         let products = `{{ json_products }}`
+        console.log(products)
         products = products.replace(/&#39;/g, '"').replace(/&quot;/ig,'"');;
         let json = JSON.parse(products);
 

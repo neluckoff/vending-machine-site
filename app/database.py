@@ -137,8 +137,8 @@ class Database:
                 cursor.execute(f'INSERT INTO `automat_products` (`product_id`, `automat_id`, `amount`) VALUES ({product_id}, {automat_id}, {amount})')
             self.connection.commit()
             
-            
-            
-if __name__ == "__main__":
-    db = Database()
-    db.get_json_products()
+    def make_order(self, automat_id: int, product_id: int) -> None:
+        with self.connection.cursor() as cursor:
+            now = time.strftime('%Y-%m-%d %H:%M:%S')
+            cursor.execute(f'INSERT INTO `order` (`date`, `product_id`, `automat_id`) VALUES ("{now}", {product_id}, {automat_id})')
+        self.connection.commit()
